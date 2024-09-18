@@ -9,6 +9,46 @@ DROP DATABASE AirlineReservation;
 GO
 ------------ FIN DE METODOS PARA ELIMINAR
 
+
+
+
+------------------- **************************
+ --- POBLAR TABLA PAIS (COUNTRY)
+ BULK INSERT country
+ FROM 'D:\country.txt'
+ WITH(
+ FIRSTROW=2,
+ FIELDTERMINATOR='\t',
+ ROWTERMINATOR='\n'
+ )
+
+ BULK INSERT country
+FROM 'D:\insert_country.csv'
+WITH (
+    FIRSTROW = 1,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+	FIELDQUOTE = '"'
+);
+
+ BULK INSERT country
+FROM 'C:\Users\Griselda\Downloads\PAISES.csv'
+WITH (
+    FIRSTROW = 1,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n'
+)
+
+
+ truncate table country
+ 
+ select * from country
+ ---- ELIMINAR POR ID -----
+DELETE FROM country
+WHERE id IN (1017, 1009, 1006, 1020, 1016);
+
+
+-----------------------**********************
 ----- CREACION DE LA BASE DE DATOS ---------------
 IF NOT EXISTS(SELECT name FROM master.sys.databases WHERE name='AirlineReservation')
 BEGIN	
